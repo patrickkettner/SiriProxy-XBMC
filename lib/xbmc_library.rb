@@ -43,7 +43,6 @@ class XBMCLibrary
     raise err.class, err.message + ". Did you configure the url and port for XBMC properly using Xbmc.base_uri 'http://localhost:1234'?"
   end
 
-
   def test()
     return xbmc('VideoLibrary.GetRecentlyAddedMovies')
   end
@@ -108,7 +107,7 @@ class XBMCLibrary
   end
 
   def find_show(title)
-    puts "[#{@appname}] Finding TV show (API version #{$apiVersion["version"]})"
+    puts "[#{@appname}] Finding #{title} (API version #{$apiVersion["version"]})"
     result = ""
     title = title.downcase.gsub(/[^0-9A-Za-z]/, '')
     if ($apiVersion["version"] == 2)
@@ -143,6 +142,45 @@ class XBMCLibrary
     }
         return result
   end
+
+	def play_season(tvshowid, season_number)
+		puts "[#{@appname}] Looking up the path for season #{season_number} of #{tvshowid} (API version #{$apiVersion["version"]})"
+		result = ""
+		if ($apiVersion["version"] == 2)
+			season_path = xbmc('VideoLibrary.GetEpisodes', { :tvshowid => tvshowid, :season => season_number, :fields => ["file"] } )['episodes']
+			if season_path
+				season_path = season_path.first['file'].split('/')
+				season_path.pop
+				season_path = season_path.join('/')
+			else
+				raise "You don't have that Season"
+			end
+		else  
+		  season_path = xbmc('VideoLibrary.GetEpisodes', { :tvshowid => tvshowid, :season => season_number, :properties => ["file"] } )['episodes']
+			if season_path
+				season_path = season_path.first['file'].split('/')
+				season_path.pop
+				season_path = season_path.join('/')
+			else
+				raise "You don't have that Season"
+			end
+		end
+
+		puts "[#{@appname}] Generating Playlist (API version #{$apiVersion["version"]})"
+    begin
+      if ($apiVersion["version"] == 2)
+        xbmc('VideoPlaylist.Clear')
+        xbmc('VideoPlaylist.Add', season_path)
+        xbmc('VideoPlaylist.Play')
+      else
+				xbmc('Playlist.Clear', {:playlistid => 1})
+				xbmc('Playlist.Add', {:playlistid => 1, :item => {:directory => season_path}})
+        xbmc('Player.Open', { :item => {:playlistid => 1}})
+      end
+    rescue
+      puts "[#{@appname}] An error occurred: #{$!}"
+    end
+	end
 
   def play(file)
     puts "[#{@appname}] Playing file (API version #{$apiVersion["version"]})"
