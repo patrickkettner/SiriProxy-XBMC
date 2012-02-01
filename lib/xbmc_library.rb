@@ -226,6 +226,13 @@ class XBMCLibrary
     end
     return false
   end
+  
+  def update_library
+  xbmc('VideoLibrary.Scan')
+  return true
+  end
+  
+end
 
 end
 
