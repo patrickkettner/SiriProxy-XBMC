@@ -234,5 +234,4 @@ class XBMCLibrary
   
 end
 
-end
 
