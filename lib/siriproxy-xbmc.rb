@@ -164,7 +164,7 @@ class SiriProxy::Plugin::XBMC < SiriProxy::Plugin
 				puts "This is season_check #{season_check}"
 				if season_check
 					season = season_check[0].match('\d+')[0].to_i
-					episode_check = numberized_title.match('episode /\d+')
+					episode_check = numberized_title.match('episode \d+')
 					puts "This is season_check #{episode_check}"
 					
 					if episode_check
