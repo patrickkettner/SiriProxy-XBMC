@@ -175,12 +175,12 @@ class SiriProxy::Plugin::XBMC < SiriProxy::Plugin
 						tvshow = @xbmc.play_season(tvshow["tvshowid"], season)	
 					end
 				else
-					episode = @xbmc.find_first_unwatched_episode(tvshow["tvshowid"])
-					if (episode == "")
-						say "No unwatched episode found for the \"#{tvshow["label"]}\""
-					else    
-						say "Now playing \"#{episode["title"]}\" (#{episode["showtitle"]}, Season #{episode["season"]}, Episode #{episode["episode"]})", spoken: "Now playing \"#{episode["title"]}\""
-						@xbmc.play(episode["file"])
+			#		episode = @xbmc.find_first_unwatched_episode(tvshow["tvshowid"])
+			#		if (episode == "")
+			#			say "No unwatched episode found for the \"#{tvshow["label"]}\""
+			#		else    
+			#			say "Now playing \"#{episode["title"]}\" (#{episode["showtitle"]}, Season #{episode["season"]}, Episode #{episode["episode"]})", spoken: "Now playing \"#{episode["title"]}\""
+			#			@xbmc.play(episode["file"])
 					end
 				end
 			end
