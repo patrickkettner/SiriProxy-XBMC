@@ -251,7 +251,7 @@ class XBMCLibrary
   
  def show_movies
     result = "" 
-    movies = xbmc('VideoLibrary.GetRecentlyAddedMovies', { :limits => 10, :sort => videorating, :properties => ["title", "rating"] } )["movies"]   
+    movies = xbmc('VideoLibrary.GetRecentlyAddedMovies', { :limits => 10, :properties => ["title", "rating"] } )["movies"]   
     return movies
     return result
   end
