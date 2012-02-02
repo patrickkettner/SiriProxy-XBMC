@@ -127,8 +127,21 @@ class SiriProxy::Plugin::XBMC < SiriProxy::Plugin
 			say "There is no room defined called \"#{roomname}\""
 		end
 		request_completed #always complete your request! Otherwise the phone will "spin" at the user!
-	end  
-
+	end
+	
+        listen_for /^update my library/i do 
+		if (@xbmc.connect(@active_room))
+			@xbmc.update_library
+		end
+		request_completed #always complete your request! Otherwise the phone will "spin" at the user!
+	end
+	
+         listen_for /test movies/i do
+         movies = @xbmc.show_movies
+         print movies
+         request_completed #always complete your request! Otherwise the phone will "spin" at the user!
+          end
+  
 	#play movie or episode
 	listen_for /watch (.+?)(?: in the (.*))?$/i do |title,roomname|
 		if (roomname == "" || roomname == nil)
@@ -158,7 +171,10 @@ class SiriProxy::Plugin::XBMC < SiriProxy::Plugin
 					season = season_check[0].match('\d+')[0].to_i
 					episode_check = numberized_title.match('episode \d+')
 					if episode_check
-						episode = season_check[0].match('\d+')
+						episode = episode_check[0].match('\d+')
+						episod = @xbmc.find_episode(tvshow["tvshowid"], season, episode)
+						say "Now playing \"#{episod["title"]}\" (#{episod["showtitle"]}, Season #{episod["season"]}, Episode #{episod["episode"]})", spoken: "Now playing \"#{episod["title"]}\""
+						@xbmc.play(episod["file"])
 						#search for spefic episode
 					else
 						#search for entire season 
