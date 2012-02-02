@@ -165,10 +165,11 @@ class SiriProxy::Plugin::XBMC < SiriProxy::Plugin
 				if season_check
 					season = season_check[0].match('\d+')[0].to_i
 					episode_check = numberized_title.match('episode \d+')
-					puts "This is season_check #{episode_check}"
+					puts "This is episode_check #{episode_check}"
 					
 					if episode_check
 						episode = episode_check[0].match('/\d+')
+						puts "This is episode #{episode}"
 						episod = @xbmc.find_episode(tvshow["tvshowid"], season, episode)
 						say "Now playing \"#{episod["title"]}\" (#{episod["showtitle"]}, Season #{episod["season"]}, Episode #{episod["episode"]})", spoken: "Now playing \"#{episod["title"]}\""
 						@xbmc.play(episod["file"])
