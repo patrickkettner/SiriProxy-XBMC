@@ -242,10 +242,10 @@ class XBMCLibrary
     end
     
     
-    episodes.each { |episode|
-    episodenumb = episode["episode"]
+    episodes.each { |episod|
+    episodenumb = episod["episode"]
       if episode_number.match(episodenumb)
-        return episode
+        return episod
       end         
     }
         return result
