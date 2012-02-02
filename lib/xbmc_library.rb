@@ -249,5 +249,17 @@ class XBMCLibrary
         return result
   end
   
+ def show_movies
+    result = ""
+	if ($apiVersion["version"] == 2)
+      movies = xbmc('VideoLibrary.GetRecentlyAddedMovies', { :limits => 10, :sort => videorating, :fields => ["title", "rating"] } )["movies"]
+	else  
+      movies = xbmc('VideoLibrary.GetRecentlyAddedMovies', { :limits => 10, :sort => videorating, :properties => ["title", "rating"] } )["movies"]
+    end
+    return movies
+    return result
+  end
+  
+  
 end
 
