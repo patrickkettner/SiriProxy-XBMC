@@ -232,5 +232,24 @@ class XBMCLibrary
   return true
   end
   
+  def find_episode(tvshowid, season_number, episode_number)
+    puts "[#{@appname}] Looking up first unwatched episode (API version #{$apiVersion["version"]})"
+    result = ""
+	if ($apiVersion["version"] == 2)
+      episodes = xbmc('VideoLibrary.GetEpisodes', { :tvshowid => tvshowid, :season => season_number, :fields => ["title", "showtitle", "season", "episode", "runtime", "playcount", "rating", "file"] } )["episodes"]
+	else  
+      episodes = xbmc('VideoLibrary.GetEpisodes', { :tvshowid => tvshowid, :season => season_number, :properties => ["title", "showtitle", "season", "episode", "runtime", "playcount", "rating", "file"] } )["episodes"]
+    end
+    
+    
+    episodes.each { |episode|
+    episodenumb = episode["episode"]
+      if episode_number.match(episodenumb)
+        return episode
+      end         
+    }
+        return result
+  end
+  
 end
 
