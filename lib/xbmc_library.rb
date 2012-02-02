@@ -246,7 +246,7 @@ class XBMCLibrary
     episode_number = episode_number.to_s
     puts "This is episode_check #{episode_number}"
     
-      if episode_number.match(episodenumb.to_s)
+      if (episode_number == episodenumb.to_s)
         return episod
       end         
     }
