@@ -173,7 +173,7 @@ class SiriProxy::Plugin::XBMC < SiriProxy::Plugin
 						puts "This is episode #{episode}"
 						episod = @xbmc.find_episode(tvshow["tvshowid"], season, episode)
 						say "Now playing \"#{episod["title"]}\" (#{episod["showtitle"]}, Season #{episod["season"]}, Episode #{episod["episode"]})", spoken: "Now playing \"#{episod["title"]}\""
-						@xbmc.play(episod["file"])
+					#	@xbmc.play(episod["file"])
 						#search for spefic episode
 					else
 						#search for entire season 
