@@ -24,7 +24,6 @@ class XBMCLibrary
     return true
   end
 
-
   # API interaction: Invokes the given method with given params, parses the JSON response body, maps it to
   # a HashWithIndifferentAccess and returns the :result subcollection
   def xbmc(method, params={})
