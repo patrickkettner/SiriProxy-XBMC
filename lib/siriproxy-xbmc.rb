@@ -181,7 +181,7 @@ class SiriProxy::Plugin::XBMC < SiriProxy::Plugin
 			#		else    
 			#			say "Now playing \"#{episode["title"]}\" (#{episode["showtitle"]}, Season #{episode["season"]}, Episode #{episode["episode"]})", spoken: "Now playing \"#{episode["title"]}\""
 			#			@xbmc.play(episode["file"])
-					end
+			#		end
 				end
 			end
 		else 
